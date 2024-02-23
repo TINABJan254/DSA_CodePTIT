@@ -27,72 +27,72 @@ int n, m, k;
 int order = 0;
 
 bool isValid(int x, int y, int next_x, int next_y){
-    int f1 = f[{next_x, next_y}].fi;
-    int f2 = f[{next_x, next_y}].se;
-    if (a[next_x][next_y] == 0 || (f1 == x && f2 == y) || visited[next_x][next_y] != 0)
-        return false;
-    return true;
+	int f1 = f[{next_x, next_y}].fi;
+	int f2 = f[{next_x, next_y}].se;
+	if (a[next_x][next_y] == 0 || (f1 == x && f2 == y) || visited[next_x][next_y] != 0)
+		return false;
+	return true;
 }
 
 void DFS(int x, int y){
-    visited[x][y] = order;
-    for (int k = 0; k < 4; k++){
-        int next_x = x + dx[k];
-        int next_y = y + dy[k];
-        if (isValid(x, y, next_x, next_y))
-            DFS(next_x, next_y);
-    }
+	visited[x][y] = order;
+	for (int k = 0; k < 4; k++){
+		int next_x = x + dx[k];
+		int next_y = y + dy[k];
+		if (isValid(x, y, next_x, next_y))
+			DFS(next_x, next_y);
+	}
 }
 
 void solve(){
-    cin >> n >> m >> k; 
-    memset(a, 0, sizeof(a));
-    memset(visited, 0, sizeof(visited));
-    for (int i = 1; i <= m; i++){
-        int x, y, u, v;
-        cin >> x >> y >> u >> v;
-        f[{x, y}] = {u, v};
-        f[{u, v}] = {x, y};
-    }
+	cin >> n >> m >> k;	
+	memset(a, 0, sizeof(a));
+	memset(visited, 0, sizeof(visited));
+	for (int i = 1; i <= m; i++){
+		int x, y, u, v;
+		cin >> x >> y >> u >> v;
+		f[{x, y}] = {u, v};
+		f[{u, v}] = {x, y};
+	}
 
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= n; j++)
-            a[i][j] = 1;
+	for (int i = 1; i <= n; i++)
+		for (int j = 1; j <= n; j++)
+			a[i][j] = 1;
 
-    for (int i = 1; i <= n; i++){
-        for (int j = 1; j <= n; j++){
-            if (!visited[i][j]){
-                ++order;
-                DFS(i, j);
-            }
-        }
-    }
+	for (int i = 1; i <= n; i++){
+		for (int j = 1; j <= n; j++){
+			if (!visited[i][j]){
+				++order;
+				DFS(i, j);
+			}
+		}
+	}
 
-    pii L[105];
-    for (int i = 0; i < k; i++){
-        int x, y;
-        cin >> x >> y;
-        L[i] = {x, y};
-    }
+	pii L[105];
+	for (int i = 0; i < k; i++){
+		int x, y;
+		cin >> x >> y;
+		L[i] = {x, y};
+	}
 
-    ll res = 0;
-    for (int i = 0; i < k; i++){
-        int x = L[i].fi;
-        int y = L[i].se;
-        cout << visited[x][y] << EL;
-        for (int j = i + 1; j < k; j++){
-            if (visited[x][y] != visited[L[j].fi][L[j].se])
-                ++res;
-        }
-    }
+	ll res = 0;
+	for (int i = 0; i < k; i++){
+		int x = L[i].fi;
+		int y = L[i].se;
+		cout << visited[x][y] << EL;
+		for (int j = i + 1; j < k; j++){
+			if (visited[x][y] != visited[L[j].fi][L[j].se])
+				++res;
+		}
+	}
 
-    cout << res;
+	cout << res;
 }
 
 int main(){
-    faster();
-    solve();
-    return 0;
+	faster();
+	solve();
+	return 0;
 }
 
 /*
