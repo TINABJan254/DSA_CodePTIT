@@ -27,7 +27,7 @@ void Init(){
 	for (int i = 1; i <= k; i++)
 		x[i] = i;
 	char st = 'A';
-	for (int i = 1; i <= k; i++)
+	for (int i = 1; i <= n; i++)
 		root[i] = st++;
 	final = false;
 }
@@ -56,11 +56,10 @@ void genNext(){
 
 void solve(){
 	Init();
-	// while (!final){
-	// 	display();
-	// 	genNext();
-	// }
-	display();
+	while (!final){
+		display();
+		genNext();
+	}
 }
 
 int main(){

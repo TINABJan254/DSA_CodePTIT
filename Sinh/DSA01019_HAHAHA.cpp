@@ -28,10 +28,10 @@ void Init(){
 }
 
 bool check(){
-	if (x[1] == 1 || x[n] == 0)
+	if (x[1] == 0 || x[n] == 1)
 		return false;
 	for (int i = 1; i < n; i++)
-		if (x[i] == x[i + 1] && x[i] == 0)
+		if (x[i] == 1 && x[i + 1] == 1)
 			return false;
 	return true;
 }
@@ -39,9 +39,9 @@ bool check(){
 void display(){
 	for (int i = 1; i <= n; i++){
 		if (x[i] == 0)
-			cout << 'H';
-		else
 			cout << 'A';
+		else
+			cout << 'H';
 	}
 	cout << "\n";
 }
