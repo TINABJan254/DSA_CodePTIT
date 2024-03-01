@@ -16,6 +16,8 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
+// Note dictionary order: 0 = 'A' , 1 = 'H'
+
 int n;
 bool final;
 int x[1005];
