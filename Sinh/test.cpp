@@ -2,98 +2,72 @@
 
 using namespace std;
 
-#define EL "\n"
 #define ll long long
-#define fi first
-#define se second
-#define sz size()
+#define EL "\n"
 #define pb push_back
-#define vi vector<int>
-#define vii vector<vector<int>>
-#define faster() ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-#define pii pair<int, int>
+#define sz size()
 
-const int MOD = 1e9 + 7;
-const int N = 1e6 + 5;
-
-int n, k;
-int x[1005];
-char root[1005];
-
+vector<ll> v;
+int n;
+string s;
 bool final;
 
 void Init(){
-	cin >> n >> k;
-	for (int i = 1; i <= k; i++)
-		x[i] = i;
-	char st = 'A';
-	for (int i = 1; i <= k; i++)
-		root[i] = st++;
-	final = false;
-}
-
-void display(){
-	for (int i = 1; i <= k; i++)
-		cout << root[x[i]];
-	cout << EL;
+    final = false;
+    s = "";
+    for (int i = 0; i < n; i++)
+        s += "0";
+    s[n - 1] = '9';
 }
 
 void genNext(){
-	int i = k;
-	while (i >= 1 && x[i] == n-k+i){
-		--i;
-	}
+    int i = n - 1;
+    while (i >= 0 && s[i] == '9'){
+        s[i] = '0';
+        --i;
+    }
 
-	if (i == 0){
-		final = true;
-	}
-	else {
-		x[i++]++;
-		for (i; i <= k; i++)
-			x[i] = x[i - 1] + 1;
-	}
+    if (i == -1){
+        final = true;
+    }
+    else {
+        s[i] = '9';
+    }
 }
 
 void solve(){
-	Init();
-	// while (!final){
-	// 	display();
-	// 	genNext();
-	// }
-	display();
+    n = 19;
+    Init();
+    while (!final){
+        v.pb(stoll(s));
+        genNext();
+    }
+
+    ll ans[305];
+    for (int i = 1; i <= 300; i++){
+        for (auto x : v){
+            if (x % i == 0){
+                ans[i] = x;
+                break;
+            }
+        }
+    }
+
+    int t; cin >> t;
+    while (t--){
+        int m;
+        cin >> m;
+        cout << ans[m] << EL;
+    }
+
+
 }
 
 int main(){
-	faster();
-	int TC; cin >> TC;
-	while (TC--){
-		solve();
-	}
-	return 0;
+    solve();
+    return 0;
 }
 
 /*
-Vương quốc PTIT sử dụng bảng chữ cái gồm N chữ cái Latinh viết hoa. Quy tắc đặt tên của gia đình Hoàng gia  PTIT là chọn ra K chữ cái (không trùng nhau) và sắp xếp lại theo thứ tự từ điển.
 
-Hãy liệt kê tất cả các cái tên có thể có của gia đình Hoàng gia PTIT
-
-Input
-
-Dòng đầu ghi số bộ test T (không quá 10)
-Mỗi bộ test ghi 2 số N và K (3 < K < N < 16)
-Output
-
-Với mỗi bộ test, ghi ra tất cả các cái tên có thể được tạo ra, mỗi kết quả viết trên một dòng.
-
-Input
-1
-4 2
-
-Output
-AB
-AC
-AD
-BC
-BD
-CD
 */
