@@ -16,51 +16,59 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
-int n;
-int t[100];
-vi x;
-ll sum, s;
-int minE;
-int cnt = 0;
+int n, k;
+int a[100];
+bool used[100];
+int s;
+bool flag;
 
-void Init(){
-	cin >> n >> s;
-	for (int i = 1; i <= n; i++)
-		cin >> t[i];
-	sum = 0;
-	minE = INT_MAX;
-	x.clear();
-}
-
-void Try(int start){
-	++cnt;
-	for (int j = start; j <= n; j++){
-		if (sum + t[j] <= s){
-			sum += t[j];
-			x.pb(t[j]);
-			if (sum == s){
-				int tmp = x.sz;
-				minE = min(minE, tmp);
+void Try(int cur_sum, int cnt){
+	if (flag){
+		return;
+	}
+	if (cnt == k){
+		flag = true;
+		return;
+	}
+	for (int j = 1; j <= n; j++){
+		if (!used[j]){
+			used[j] = true;
+			if (cur_sum == s){
+				Try(0, cnt + 1);
+				return;
 			}
-			else if (sum < s && x.sz < minE){
-				Try(j + 1);
+			if (cur_sum > s){
+				return;
 			}
-			//backtrack
-			sum -= t[j];
-			x.pop_back();
+			else {
+				Try(cur_sum + a[j], cnt);
+			}
 		}
+		used[j] = false;
 	}
 }
 
 void solve(){
-	Init();
-	Try(1);
-	if (minE == INT_MAX){
-		cout << "-1\n";
+	cin >> n >> k;
+	s = 0;
+	for (int i = 1; i <= n; i++){
+		cin >> a[i];
+		s += a[i];
 	}
-	else
-		cout << minE << EL;
-	cout << cnt << EL;
+	memset(used, false, sizeof(used));
+	flag = false;
+
+	if (s % k != 0){
+		cout << "0\n";
+	}
+	else {
+		s /= k;
+		Try(0, 0);
+		if (flag)
+			cout << "1\n";
+		else
+			cout<< "0\n";
+	}
 }
 
 int main(){
@@ -73,21 +81,33 @@ int main(){
 }
 
 /*
-Một máy ATM hiện có n (n ≤ 30) tờ tiền có giá trị t[1], t[2], …, t[n]. Hãy tìm cách trả ít tờ nhất với số tiền đúng bằng S (các tờ tiền có giá trị bất kỳ và có thể bằng nhau, mỗi tờ tiền chỉ được dùng một lần).
+Cho mảng các số nguyên A[] gồm N phần tử. 
+Hãy chia mảng số nguyên A[] thành K tập con khác rỗng sao cho 
+tổng các phần tử của mỗi tập con đều bằng nhau. 
+Mỗi phần tử thuộc tập con xuất hiện duy nhất một lần trong 
+tất cả các tập con. Ví dụ với A[] = {2, 1, 4, 5, 6}, K =3 
+ta có kết quả {2, 4}, {1, 5}, {6}.
 
-Input: Dòng đầu tiên ghi số bộ test T (T<10). Mỗi bộ test gồm 2 số nguyên n và S (S ≤ 109). Dòng thứ hai chứa n số nguyên t[1], t[2], …, t[n] (t[i] ≤ 109)
+Input:
 
-Output: Với mỗi bộ test ghi ra số tờ tiền ít nhất phải trả.
+Dòng đầu tiên đưa vào số lượng bộ test T.
+Những dòng kế tiếp đưa vào các bộ test. 
+Mỗi bộ test gồm hai phần: phần thứ nhất là hai số N và K; 
+dòng tiếp theo đưa vào N số của mmảng A[]; 
+các số được viết cách nhau một vài khoảng trống.
+T, N, K, A[i] thỏa mãn ràng buộc: 1≤T ≤100; 1≤N, K≤20, 0≤A[i]≤100.
+Output:
 
-     Nếu không thể tìm được kết quả, in ra -1.
-
-Ví dụ
-
+Đưa ra 1 nếu có thể chia tập con thành K tập thỏa mãn yêu cầu bài toán, 
+ngược lại đưa ra 0.
 Input
-1
-3 5
-1 4 5
+2
+5 3
+2 1 4 5 6
+5 3
+2 1 5 5 6
 
 Output
 1
+0
 */

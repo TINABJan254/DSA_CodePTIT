@@ -22,19 +22,8 @@ bool used[100];
 int s;
 bool flag;
 
-void Init(){
-	cin >> n >> k;
-	s = 0;
-	for (int i = 1; i <= n; i++){
-		cin >> a[i];
-		s += a[i];
-	}
-	memset(used, false, sizeof(used));
-	flag = false;
-}
-
 void Try(int cur_sum, int cnt){
-	if (flag = true){
+	if (flag){
 		return;
 	}
 	if (cnt == k){
@@ -44,24 +33,33 @@ void Try(int cur_sum, int cnt){
 	for (int j = 1; j <= n; j++){
 		if (!used[j]){
 			used[j] = true;
-			if (cur_sum + a[j] == s){
+			if (cur_sum == s){
 				Try(0, cnt + 1);
 				return;
 			}
-			else if (cur_sum + a[j] < s){
+			if (cur_sum > s){
+				return;
+			}
+			else {
 				Try(cur_sum + a[j], cnt);
 			}
-			//backtrack
-			used[j] = false;
 		}
+		used[j] = false;
 	}
 }
 
 void solve(){
-	Init();
+	cin >> n >> k;
+	s = 0;
+	for (int i = 1; i <= n; i++){
+		cin >> a[i];
+		s += a[i];
+	}
+	memset(used, false, sizeof(used));
+	flag = false;
+
 	if (s % k != 0){
 		cout << "0\n";
-		return;
 	}
 	else {
 		s /= k;

@@ -1,2 +1,3 @@
-6 2
-DONG TAY NAM BAC TAY BAC
+2
+3
+4
