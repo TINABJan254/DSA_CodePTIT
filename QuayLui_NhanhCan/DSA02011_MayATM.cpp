@@ -21,7 +21,6 @@ int t[100];
 vi x;
 ll sum, s;
 int minE;
-int cnt = 0;
 
 void Init(){
 	cin >> n >> s;
@@ -33,7 +32,6 @@ void Init(){
 }
 
 void Try(int start){
-	++cnt;
 	for (int j = start; j <= n; j++){
 		if (sum + t[j] <= s){
 			sum += t[j];
@@ -60,7 +58,6 @@ void solve(){
 	}
 	else
 		cout << minE << EL;
-	cout << cnt << EL;
 }
 
 int main(){
