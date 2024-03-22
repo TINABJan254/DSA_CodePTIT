@@ -1,113 +1,83 @@
-#include <bits/stdc++.h>
+// Created by Nguyễn Mạnh Quân
+
+#include<bits/stdc++.h>
 
 using namespace std;
 
-#define EL "\n"
-#define ll long long
+#define mp make_pair
 #define fi first
 #define se second
-#define sz size()
 #define pb push_back
+#define sz size()
+#define ll long long
+#define FOR(i, a, b) for(int i = a; i <= b; i++)
+#define FORD(i, a, b) for(int i = a; i >= b; i--)
+#define F(i, a, b) for(int i = a; i < b; ++i)
+#define FD(i, a, b) for(int i = a; i > b; --i)
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 #define vi vector<int>
-#define vii vector<vector<int>>
-#define faster() ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-#define pii pair<int, int>
+#define vll vector<ll>
+#define all(x) (x).begin(), (x).end()
+#define endl '\n'
 
-const int MOD = 1e9 + 7;
-const int N = 1e6 + 5;
-
-int n, k;
-int a[100];
-bool used[100];
-int s;
-bool flag;
-
-void Try(int cur_sum, int cnt){
-	if (flag){
-		return;
-	}
-	if (cnt == k){
-		flag = true;
-		return;
-	}
-	for (int j = 1; j <= n; j++){
-		if (!used[j]){
-			used[j] = true;
-			if (cur_sum == s){
-				Try(0, cnt + 1);
-				return;
-			}
-			if (cur_sum > s){
-				return;
-			}
-			else {
-				Try(cur_sum + a[j], cnt);
-			}
-		}
-		used[j] = false;
-	}
+bool check(string s)
+{
+    if(s.empty()) return 0;
+    if(s.sz == 1 && isalpha(s[0])) return 0;
+    int cnt = 0;
+    for(char i : s)
+    {
+        if(i == '(') ++cnt;
+        else if(i == ')') --cnt;
+        if(cnt < 0) return 0;
+    }
+    return !cnt;
 }
 
-void solve(){
-	cin >> n >> k;
-	s = 0;
-	for (int i = 1; i <= n; i++){
-		cin >> a[i];
-		s += a[i];
-	}
-	memset(used, false, sizeof(used));
-	flag = false;
-
-	if (s % k != 0){
-		cout << "0\n";
-	}
-	else {
-		s /= k;
-		Try(0, 0);
-		if (flag)
-			cout << "1\n";
-		else
-			cout<< "0\n";
-	}
+int main()
+{
+    faster();
+    int t = 1;
+    cin >> t;
+    string s, tmp;
+    cin.ignore();
+    while(t--)
+    {
+        cin >> s;
+        vector<string> ans;
+        unordered_map<string, bool> m;
+        queue<string> q;
+        m[s] = 1;
+        q.push(s);
+        bool ok = 0;
+        while(q.sz)
+        {
+            string s = q.front();
+            q.pop();
+            if(check(s))
+            {
+                ans.pb(s);
+                ok = 1;
+            }
+            if(ok) continue;
+            for(int i = 0; i < s.sz; ++i)
+            {
+                if(isalnum(s[i])) continue;
+                tmp = s.substr(0, i) + s.substr(i + 1);
+                if(!m[tmp])
+                {
+                    m[tmp] = 1;
+                    q.push(tmp);
+                }
+            }
+        }
+        if(!ok) cout << -1;
+        else
+        {
+            sort(all(ans));
+            for(string i : ans) cout << i << ' ';
+        }
+        cout << endl;
+    }
+    return 0;
 }
-
-int main(){
-	faster();
-	int TC; cin >> TC;
-	while (TC--){
-		solve();
-	}
-	return 0;
-}
-
-/*
-Cho mảng các số nguyên A[] gồm N phần tử. 
-Hãy chia mảng số nguyên A[] thành K tập con khác rỗng sao cho 
-tổng các phần tử của mỗi tập con đều bằng nhau. 
-Mỗi phần tử thuộc tập con xuất hiện duy nhất một lần trong 
-tất cả các tập con. Ví dụ với A[] = {2, 1, 4, 5, 6}, K =3 
-ta có kết quả {2, 4}, {1, 5}, {6}.
-
-Input:
-
-Dòng đầu tiên đưa vào số lượng bộ test T.
-Những dòng kế tiếp đưa vào các bộ test. 
-Mỗi bộ test gồm hai phần: phần thứ nhất là hai số N và K; 
-dòng tiếp theo đưa vào N số của mmảng A[]; 
-các số được viết cách nhau một vài khoảng trống.
-T, N, K, A[i] thỏa mãn ràng buộc: 1≤T ≤100; 1≤N, K≤20, 0≤A[i]≤100.
-Output:
-
-Đưa ra 1 nếu có thể chia tập con thành K tập thỏa mãn yêu cầu bài toán, 
-ngược lại đưa ra 0.
-Input
-2
-5 3
-2 1 4 5 6
-5 3
-2 1 5 5 6
-
-Output
-1
-0
-*/

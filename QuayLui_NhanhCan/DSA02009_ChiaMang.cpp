@@ -19,51 +19,50 @@ const int N = 1e6 + 5;
 int n, k;
 int a[100];
 bool used[100];
-int s;
+int target_sum;
 bool flag;
 
-void Try(int cur_sum, int cnt){
+void Init(){
+	cin >> n >> k;
+	target_sum = 0;
+	for (int i = 1; i <= n; i++){
+		cin >> a[i];
+		target_sum += a[i];
+	}
+	memset(used, false, sizeof(used));
+	flag = false;
+}
+
+void Try(int start, int cur_sum, int cnt){
 	if (flag){
 		return;
 	}
-	if (cnt == k){
+	if (cnt == k + 1){
 		flag = true;
 		return;
 	}
-	for (int j = 1; j <= n; j++){
-		if (!used[j]){
+	for (int j = start; j <= n; j++){
+		if (!used[j] && cur_sum + a[j] <= target_sum){
 			used[j] = true;
-			if (cur_sum == s){
-				Try(0, cnt + 1);
-				return;
-			}
-			if (cur_sum > s){
-				return;
+			if (cur_sum + a[j] == target_sum){
+				Try(1, 0, cnt + 1);
 			}
 			else {
-				Try(cur_sum + a[j], cnt);
+				Try(j + 1, cur_sum + a[j], cnt);
 			}
+			used[j] = false;
 		}
-		used[j] = false;
 	}
 }
 
 void solve(){
-	cin >> n >> k;
-	s = 0;
-	for (int i = 1; i <= n; i++){
-		cin >> a[i];
-		s += a[i];
-	}
-	memset(used, false, sizeof(used));
-	flag = false;
-
-	if (s % k != 0){
+	Init();
+	if (target_sum % k != 0){
 		cout << "0\n";
 	}
 	else {
-		s /= k;
-		Try(0, 0);
+		target_sum /= k;
+		Try(1, 0, 1);
 		if (flag)
 			cout << "1\n";
 		else
