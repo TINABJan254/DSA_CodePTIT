@@ -1,5 +1,3 @@
-// Created by Nguyễn Mạnh Quân
-
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -20,18 +18,30 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define endl '\n'
 
-bool check(string s)
+int n;
+string s;
+char a[20];
+bool check[20];
+
+void print(int j)
 {
-    if(s.empty()) return 0;
-    if(s.sz == 1 && isalpha(s[0])) return 0;
-    int cnt = 0;
-    for(char i : s)
+    for(int i = 1; i <= j; ++i) cout << a[i];
+    cout << ' ';
+}
+
+void Try(int i, int cnt = 1)
+{
+    for(int j = i; j <= n; ++j)
     {
-        if(i == '(') ++cnt;
-        else if(i == ')') --cnt;
-        if(cnt < 0) return 0;
+        a[cnt] = s[j];
+        if(!check[j])
+        {
+            check[j] = 1;
+            print(cnt);
+            Try(j + 1, cnt + 1);
+            check[j] = 0;
+        }
     }
-    return !cnt;
 }
 
 int main()
@@ -39,44 +49,12 @@ int main()
     faster();
     int t = 1;
     cin >> t;
-    string s, tmp;
-    cin.ignore();
     while(t--)
     {
-        cin >> s;
-        vector<string> ans;
-        unordered_map<string, bool> m;
-        queue<string> q;
-        m[s] = 1;
-        q.push(s);
-        bool ok = 0;
-        while(q.sz)
-        {
-            string s = q.front();
-            q.pop();
-            if(check(s))
-            {
-                ans.pb(s);
-                ok = 1;
-            }
-            if(ok) continue;
-            for(int i = 0; i < s.sz; ++i)
-            {
-                if(isalnum(s[i])) continue;
-                tmp = s.substr(0, i) + s.substr(i + 1);
-                if(!m[tmp])
-                {
-                    m[tmp] = 1;
-                    q.push(tmp);
-                }
-            }
-        }
-        if(!ok) cout << -1;
-        else
-        {
-            sort(all(ans));
-            for(string i : ans) cout << i << ' ';
-        }
+        memset(check, 0, 20);
+        cin >> n >> s;
+        s = "0" + s;
+        Try(1);
         cout << endl;
     }
     return 0;
