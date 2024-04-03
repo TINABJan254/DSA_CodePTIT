@@ -1,72 +1,57 @@
-// C++ program to rearrange a string so that all same
-// characters become at least d distance away using STL
-#include <bits/stdc++.h>
+// C++ program to count swaps required to balance string
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
-typedef pair<char, int> PAIR;
 
-// Comparator of priority_queue
-struct cmp {
-	bool operator()(const PAIR& a, const PAIR& b)
-	{
-		if(a.second < b.second) return true;
-		else if(a.second > b.second) return false;
-		else return a.first > b.first;
-	}
-};
-
-void rearrange(string str, int d)
+// Function to calculate swaps required
+long swapCount(string s)
 {
-	// Length of the string
-	int n = str.size();
+	// Keep track of '['
+	vector<int> pos;
+	for (int i = 0; i < s.length(); ++i)
+		if (s[i] == '[')
+			pos.push_back(i);
 
-	// A structure to store a character and its frequency
-	unordered_map<char, int> m;
+	int count = 0; // To count number of encountered '['
+	int p = 0; // To track position of next '[' in pos
+	long sum = 0; // To store result
 
-	// Traverse the input string and store frequencies of
-	// all characters.
-	for (int i = 0; i < n; i++) {
-		m[str[i]]++;
-		str[i] = '\0';
-	}
-	str = "";
-	// max-heap
-	priority_queue<PAIR, vector<PAIR>, cmp> pq(m.begin(),
-											m.end());
-
-	// Now one by one extract all distinct characters from
-	// heap and put them back in str[] with the d
-	// distance constraint
-	while (pq.empty() == false) {
-		char x = pq.top().first;
-		
-		// Find the first available position in str[]
-		int p = 0;
-		while (str[p] != '\0')
-			p++;
-		
-		// Fill x at p, p+d, p+2d, .. p+(frequency-1)d
-		for (int k = 0; k < pq.top().second; k++) {
-		
-			// If the index goes beyond size, then string
-			// cannot be rearranged.
-			if (p + d * k >= n) {
-				cout << "Cannot be rearranged";
-				exit(0);
-			}
-			str[p + d * k] = x;
+	for (int i = 0; i < s.length(); ++i)
+	{
+		// Increment count and move p to next position
+		if (s[i] == '[')
+		{
+			++count;
+			++p;
 		}
-		pq.pop();
+		else if (s[i] == ']')
+			--count;
+
+		// We have encountered an unbalanced part of string
+		if (count < 0)
+		{
+			// Increment sum by number of swaps required
+			// i.e. position of next '[' - current position
+			sum += pos[p] - i;
+			swap(s[i], s[pos[p]]);
+			++p;
+
+			// Reset count to 1
+			count = 1;
+		}
 	}
-	cout << str << ' ';
+	return sum;
 }
 
-// Driver Code
+// Driver code
 int main()
 {
-	char str[] = "aabbcc";
-
-	// Function call
-	rearrange(str, 3);
-	
+	int TC; cin >> TC;
+	while (TC--){
+	    string s;
+	    cin >> s;
+	    cout << swapCount(s) << endl;
+	}
+	return 0;
 }
