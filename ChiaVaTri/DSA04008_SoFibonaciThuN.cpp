@@ -16,24 +16,50 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
-int F[100] = {0};
+struct Matrix{
+	ll A[2][2];
+	Matrix operator * (Matrix &other){
+		Matrix res;
+		for (int i = 0; i < 2; i++){
+			for (int j = 0; j < 2; j++){
+				res.A[i][j] = 0;
+				for (int k = 0; k < 2; k++){
+					res.A[i][j] += this->A[i][k] * other.A[k][j];
+					res.A[i][j] %= MOD;
+				}
+			} 
+		}
+		return res;
+	}
+};
 
-void Init(){
-	F[0] = 0;
-	F[1] = 1;
-	for (int i = 2; i <= 92; i++){
-		F[i] = F[i - 1] % MOD + F[i - 2] % MOD;
-		F[i] %= MOD;
+Matrix binPow(Matrix a, ll n){
+	if (n == 1){
+		return a;	
+	}
+	Matrix x = binPow(a, n / 2);
+	if (n % 2 == 0){
+		return x * x;
+	}
+	else{
+		return x * x * a;
 	}
 }
 
 void solve(){
-	int n; cin >> n;	
-	cout << F[n] << EL;
+	ll n; cin >> n;
+	Matrix x;
+	x.A[0][0] = 1;
+	x.A[0][1] = 1;
+	x.A[1][0] = 1;
+	x.A[1][1] = 0;
+
+	x = binPow(x, n);
+
+	cout << x.A[0][1] << EL;
 }
 
 int main(){
-	Init();
 	faster();
 	int TC; cin >> TC;
 	while (TC--){
@@ -43,6 +69,7 @@ int main(){
 }
 
 /*
+
 Dãy số Fibonacci được xác định bằng công thức như sau:
 
 F[0] = 0, F[1] = 1;
