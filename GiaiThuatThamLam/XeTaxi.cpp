@@ -26,31 +26,30 @@ void solve(){
 		d[a[i]]++;
 	}
 
-	int res = 0;
-	int res4 = d[4];
-	res += res4;
-	
-	int res31 = min(d[3], d[1]);
-	d[1] -= res31;
-	d[3] -= res31;
-	res += res31;
+	int res = d[4] + d[2] / 2;
+	d[2] %= 2; //co the du 1 nhom 2 nguoi
+	res += min(d[1], d[3]); //ghep nhom 3 nguoi voi nhom 1 nguoi
 
-	int res22 = d[2] / 2;
-	d[2] = d[2] % 2;
-	res += res22;
-
-	int res211 = min(d[2], d[1]);
-	d[1] -= res211;
-	res += res211;
-
-	int res3 = d[3];
-	res += res3;
-
-	int res1111 = d[1] / 4;
-	res += res1111;
-	if (d[1] % 4)
-		++res;
-
+	if (d[1] <= d[3]){
+		res += d[3] - d[1] + d[2];
+	}
+	else {
+		d[1] -= d[3];
+		if (d[2] != 0){
+			//van du 1 nhom 2 nguoi
+			if (d[1] <= 2){
+				res++;
+			}
+			else {
+				res++;
+				d[1] -= 2; //ghep 2 nhom 1 nguoi va 1 nhom 2 nguoi vao 1 xe
+				res += d[1] / 4 + min(1, d[1] % 4);
+			}
+		}
+		else {
+			res += d[1] / 4 + min(1, d[1] % 4);
+		}
+	}
 	cout << res;
 
 }

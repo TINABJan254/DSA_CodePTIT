@@ -16,6 +16,19 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
+bool p[1000004];
+
+void sieve(){
+	memset(p, true, sizeof(p));
+	p[0] = p[1] = false;
+	for (int i = 2; i <= 1000; i++){
+		if (p[i]){
+			for (int j = i * i; j <= 10000005; j += i)
+				p[j] = false;
+		}
+	}
+}
+
 ll dao(ll n){
 	ll res = 0;
 	while (n != 0){
