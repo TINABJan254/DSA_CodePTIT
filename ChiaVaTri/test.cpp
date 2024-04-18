@@ -10,8 +10,7 @@ using namespace std;
 #define sz size()
 
 void solve(){
-    int x = 8 >> 2;
-    cout << x;
+   cout << "hello";
 }
 
 int main(){
