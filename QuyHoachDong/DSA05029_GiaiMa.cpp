@@ -52,15 +52,13 @@ int main(){
 }
 
 /*
-dp[i] : lưu số cách tách i chữ số đầu tiên ra 
-		làm dãy số với các số(x) trong dãy sao cho 1 <= x <= 26
+dp[i] : lưu số cách tách i chữ số đầu tiên ra làm dãy số với các số(x) trong dãy sao cho 1 <= x <= 26
 dp[i] = dp[i - 1] : nếu như có thể tách theo kiểu chữ số cuối cùng đứng 1 mình
-dp[i] += dp[i - 2] : nếu như 2 chữ số cuối có thể tạo thành số (x) có 2 chữ số (1 <= x <= 26)
-					 và lại tách theo kiểu 2 chữ số cuối đứng 1 mình
+dp[i] += dp[i - 2] : nếu như 2 chữ số cuối có thể tạo thành số (x) có 2 chữ số (1 <= x <= 26) 
+	và lại tách theo kiểu 2 chữ số cuối đứng 1 mình
 
 Bài toán cơ sở:
-dp[0] = dp[1] = 1; số cách tách 0/1 chữ số đầu tiên thành các số x 
-					(1 <= x <= 26) thì chỉ có duy nhất 1 cách
+dp[0] = dp[1] = 1; số cách tách 0/1 chữ số đầu tiên thành các số x (1 <= x <= 26) thì chỉ có duy nhất 1 cách
 
 Một bản tin M đã mã hóa bí mật thành các con số theo ánh xạ như sau: 
 ‘A’->1, ‘B’->2, .., ‘Z’->26. Hãy cho biết có bao nhiêu cách khác nhau để giải mã 
