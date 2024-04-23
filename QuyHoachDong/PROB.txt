@@ -1,0 +1,35 @@
+Longest Alternating Subsequence: 
+	geeksforgeeks.org/longest-alternating-subsequence
+Problem Page 159: geeksforgeeks.org/problem-page-159
+Codeforces Problem 718/A: codeforces.com/problemset/problem/718/A
+Codeforces Problem 363/B: codeforces.com/problemset/problem/363/B
+Codeforces Problem 698/A: codeforces.com/problemset/problem/698/A
+Codeforces Problem 1526/B: codeforces.com/problemset/problem/1526/B
+SPOJ Problem PB: 
+	spoj.com/problems/PB
+Count Number of Binary Strings Without Consecutive 1s: 
+	geeksforgeeks.org/count-number-binary-strings-without-consecutive-1s
+Count N-digit Numbers Whose Sum of Digits Equals to Given Sum: 
+	geeksforgeeks.org/count-of-n-digit-numbers-whose-sum-of-digits-equals-to-given-sum
+Find Length of the Longest Consecutive Path in a Character Matrix: 
+	geeksforgeeks.org/find-length-of-the-longest-consecutive-path-in-a-character-matrix
+Bài toán Knapsack không giới hạn: 
+	geeksforgeeks.org/unbounded-knapsack-repetition-items-allowed/
+Tối ưu hóa dòng tiền giữa một nhóm bạn bè: 
+	geeksforgeeks.org/maximize-cash-flow-among-given-set-friends-borrowed-money/
+Số bước nhảy tối thiểu để đến cuối mảng: 
+	geeksforgeeks.org/minimum-number-of-jumps-to-reach-end-of-a-given-array/
+Bài toán đổi tiền xu: 
+	leetcode.com/problems/coin-change/
+Đếm số hoán vị mà không có phần tử nào ở vị trí ban đầu: 
+	geeksforgeeks.org/count-derangements-permutation-such-that-no-element-appears-in-its-original-position-dp-7/
+Bài toán chia nhóm: 
+	geeksforgeeks.org/partition-problem-dp-18/
+Bài toán PTIT121D: 
+	spoj.com/PTIT/problems/PTIT121D/
+Bài toán PTIT126J: 
+	spoj.com/PTIT/problems/PTIT126J/
+Đếm số cách đạt được điểm số nhất định trong trò chơi: 
+	geeksforgeeks.org/count-number-ways-reach-given-score-game/
+Bài toán tổng tập con: 
+	geeksforgeeks.org/subset-sum-problem-dp-25/
