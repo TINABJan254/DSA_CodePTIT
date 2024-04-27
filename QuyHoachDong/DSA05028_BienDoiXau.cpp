@@ -18,6 +18,26 @@ const int N = 1e6 + 5;
 
 void solve(){
 	string s1, s2; cin >> s1 >> s2;
+	int n = s1.sz; 
+	int m = s2.sz;
+	s1 = "0" + s1;
+	s2 = "0" + s2;
+	
+	int dp[n + 5][m + 5] = {0};
+	
+	for (int i = 1; i <= n; i++) dp[i][0] = i;
+	for (int j = 1; j <= m; j++) dp[0][j] = j;
+	for (int i = 1; i <= n; i++){
+		for (int j = 1; j <= m; j++){
+			if (s1[i] != s2[j]){
+				dp[i][j] = min({dp[i-1][j-1], dp[i - 1][j], dp[i][j - 1]}) + 1;	
+			}
+			else
+				dp[i][j] = dp[i - 1][j - 1];
+		}
+	}
+	
+	cout << dp[n][m] << EL;
 }
 
 int main(){
@@ -30,6 +50,8 @@ int main(){
 }
 
 /*
+
+dp[i][j] : số cách biến đổi i kí tự s1 thành j kí tự s2
 Cho hai xâu ký tự str1, str2 bao gồm các ký tự in thường và các thao tác dưới đây:
 
 Insert: chèn một ký tự bất kỳ vào str1.
