@@ -25,7 +25,7 @@ bool cmp(Job x, Job y){
 	return x.finish < y.finish;
 }
 
-int first_pos(Job a[], int index, int x){
+int first_pos(Job *a, int index, int x){
 	int L = 1, R = index - 1;
 	int res = -1;
 	while (L <= R){
@@ -47,26 +47,36 @@ void solve(){
 		cin >> a[i].start >> a[i].finish >> a[i].profit;
 	
 	//find max profit
-	sort(a + 1, a + n + 1, cmp);
-	ll dp[n+5] = {0};
-	//dp[1] = a[1].profit;
+	sort(a + 1, a + 1 + n, cmp);
+	ll *dp = new ll[n+1];
+	memset(dp, 0, sizeof(dp));
+	dp[1] = a[1].profit;
 	
-	for (int i = 1; i <= n; i++){
-		
+	for (int i = 2; i <= n; i++){
+		//Find profit including the current job
+		ll inclProf = 0;
 		int pos = first_pos(a, i, a[i].start - 1); //Find the latest job (in sorted array) that doesn't conflict with the job[i]
+		if (pos != -1){
+			inclProf = dp[pos] + a[i].profit; //Include the i job
+		}
+		//Store maximum of including and excluding the i job
+		dp[i] = max(inclProf, dp[i - 1]);
 		
-	
+		/* Ngan hon, dung chinh ct truy hoi
 		if (pos == -1)
-			dp[i] = max(a[i].profit, dp[i - 1]); //Ko thay job thu i
+			dp[i] = max(a[i], dp[i - 1]); //Ko thay job thu i
 		else
-			dp[i] = max(a[i].profit + dp[pos], dp[i - 1]); //Lay job thu i
+			dp[i] = max(a[i] + dp[pos], dp[i - 1]); //Lay job thu i
+		*/
 		
 	}
 	
-	cout << dp[n] << EL;
+	cout << dp[n];
+	delete[] dp; 
 }
 
 int main(){
+	faster();
 	solve();
 	return 0;
 }
