@@ -28,12 +28,13 @@ void Prim(int s){
 			pq.push({e.se, e.fi});
 	}
 	
-	ll d = 0;
+	ll d = 0, cnt = 0;
 	while (!pq.empty()){
 		//pq.top() : canh co trong so nho nhat
 		pii e = pq.top(); pq.pop();
 		int w = e.fi, dest = e.se;
 		if (!used[dest]){
+			++cnt;
 			d += w;
 			used[dest] = true;
 			for (pii tmp : adj[dest]){
@@ -43,7 +44,10 @@ void Prim(int s){
 		}
 	}
 	
-	cout << d;
+	if (cnt == n - 1)
+		cout << d << EL;
+	else
+		cout << "Do thi ko lien thong => khong ton tai cay khung\n";
 }
 
 void solve(){
@@ -54,26 +58,45 @@ void solve(){
 		adj[y].pb({x, w});
 	}
 	memset(used, false, sizeof(used));
-	for (int i = 1; i <= n; i++)
-		adj[i].clear();
 	Prim(1);
+	
+	for (int i = 1; i <= n; i++)
+	    adj[i].clear();
 }
 
 int main(){
-	#ifndef ONLINE_JUDGE
-		freopen("inputf.txt", "r", stdin);
-	#endif
 	faster();
 	int TC; cin >> TC;
 	while (TC--){
-		solve();
+	    solve();
 	}
 	return 0;
 }
 
 /*
-Tư tưởng thuật toán Prim:
-Chọn các cạnh có trọng số nhỏ nhất để đưa vào cây khung
-Chọn bằng cách chọn 1 đỉnh thuộc cây khung và 1 đỉnh ko thuộc cây khung
-như thế thì chắc chắn cạnh chọn được sẽ ko tạo thành chu trình
+Cho đồ thị vô hướng có trọng số G=<V, E, W>. Nhiệm vụ của bạn là hãy xây dựng một cây khung nhỏ nhất của 
+đồ thị bằng thuật toán Prim.
+
+Input:
+
+Dòng đầu tiên đưa vào số lượng bộ test T.
+Những dòng kế tiếp đưa vào các bộ test. Mỗi bộ test gồm hai phần: phần thứ nhất đưa vào hai số V, E tương ứng với số đỉnh và số cạnh của đồ thị; phần thứ 2 đưa vào E cạnh của đồ thị, mỗi cạnh là một bộ 3: đỉnh đầu, đỉnh cuối và trọng số của cạnh.
+T, S, D thỏa mãn ràng buộc: 1≤T≤100;  1≤V≤100; 1≤E, W≤10000.
+Output:
+
+Đưa ra kết quả mỗi test theo từng dòng.
+Ví dụ:
+
+Input
+2
+3 3
+1 2 5
+2 3 3
+1 3 1
+2 1
+1 2 5
+
+Output
+4
+5
 */
