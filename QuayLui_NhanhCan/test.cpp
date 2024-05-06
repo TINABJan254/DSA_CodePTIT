@@ -18,44 +18,37 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define endl '\n'
 
-int n;
-string s;
-char a[20];
-bool check[20];
+int n, k;
+int a[15], check, res = 0;
+vi sum(15);
 
-void print(int j)
+void Try(int i, int cnt = 0)
 {
-    for(int i = 1; i <= j; ++i) cout << a[i];
-    cout << ' ';
-}
-
-void Try(int i, int cnt = 1)
-{
-    for(int j = i; j <= n; ++j)
+    if(cnt == k)
     {
-        a[cnt] = s[j];
-        if(!check[j])
-        {
-            check[j] = 1;
-            print(cnt);
-            Try(j + 1, cnt + 1);
-            check[j] = 0;
-        }
+        res += i == n;
+        return;
     }
+    for(int j = i + 1; j <= n; ++j) if(sum[j] - sum[i] == check) Try(j, cnt + 1);
 }
 
 int main()
 {
     faster();
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while(t--)
     {
-        memset(check, 0, 20);
-        cin >> n >> s;
-        s = "0" + s;
-        Try(1);
-        cout << endl;
+        cin >> n >> k;
+        for(int i = 1; i <= n; ++i)
+        {
+            cin >> check;
+            sum[i] = sum[i - 1] + check;
+        }
+        if(sum[n] % k) return cout << 0, 0;
+        check = sum[n] / k;
+        Try(0);
+        cout << res;
     }
     return 0;
 }
