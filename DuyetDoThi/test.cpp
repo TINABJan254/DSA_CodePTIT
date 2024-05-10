@@ -16,65 +16,62 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
-struct edge{
-	int src, des, w;
-};
-
-int INF = (int)1e9;
-int n, m, s;
-vector<edge> edge_list;
-int d[10005];
+int parent[200005];
+int degree[200005];
+int inc[200005];
+ll val[200005];
+int n;
 
 void Init(){
-	cin >> n >> m >> s;
-	for (int i = 1; i <= m; i++){
-		int x, y, z; cin >> x >> y >> z;
-		edge_list.pb({x, y, z});
+	cin >> n;
+	for (int i = 2; i <= n; i++){
+		int x; cin >> x;
+		degree[x]++;
+		parent[i] = x;
+	}
+	
+	parent[1] = 0;
+	fill(val, val + n + 1, 1);
+	fill(inc, inc + n + 1, 1);
+	for (int i = 1; i <= n; i++){
+		if (degree[i] == 0){
+			val[i] = 1; //leaf
+		}
 	}
 }
 
-void Bellman_Ford(){
-	fill(d + 1, d + n + 1, INF);
-	d[s] = 0;
-	for (int i = 1; i <= n - 1; i++){
-		for (edge e : edge_list){
-			int u = e.src, v = e.des, W = e.w;
-			if (d[u] < INF){
-				d[v] = min(d[v], d[u] + W);
-			}
-		}
-	}
-	
+void calc(){
+	queue<int> q;
 	for (int i = 1; i <= n; i++)
-		cout << d[i] << ' ';
-	cout << EL;
+		if (degree[i] == 0)
+			q.push(i);
 	
-	//free memory
-	edge_list.clear();
+	while (!q.empty()){
+		int u = q.front(); q.pop();
+		val[parent[u]] += (val[u] + inc[u]);
+		inc[parent[u]] += inc[u];
+		--degree[parent[u]];
+		if (degree[parent[u]] == 0)
+			q.push(parent[u]);
+	}
 }
 
 void solve(){
 	Init();
-	Bellman_Ford();
+	calc();
+	for (int i = 1; i <= n; i++)
+		cout << val[i] << ' ';
 }
 
 int main(){
-	
+	#ifndef ONLINE_JUDGE
+		freopen("inputf.txt", "r", stdin);
+	#endif
 	faster();
-	int TC; cin >> TC;
-	while (TC--){
-		solve();
-	}
+	solve();
 	return 0;
 }
 
 /*
-Bellman-Ford là thu?t toán tìm du?ng di t? 1 d?nh t?i m?i d?nh trên d? th?
-Bellman-Ford có th? áp d?ng cho d? th? v?i c?nh có tr?ng s? âm, nhung ko th? áp d?ng v?i
-d? th? có chu trình âm
-Ð? ph?c t?p: O(V*E).
 
-d[i] : luu khoang cach tu s toi i
-Thu?t toán l?p n - 1 bu?c, m?i bu?c s? xét t?t c? các c?p c?nh (u, v) có tr?ng s? w.
-N?u d[v] > d[u] + w thì c?p nh?t l?i d[v];
 */
