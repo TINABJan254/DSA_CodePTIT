@@ -79,6 +79,8 @@ ví dụ như này:
 	res.clear();
 	adj[all].clear()
 -> Vậy thì nếu ko có nghiệm ta in ra -1 xong rồi kết thúc ctrinh luôn mà ko free memory ở phía dưới
+
+1 cạnh của cây khung là (parent[u], u);
 Cho đồ thị vô hướng G=(V, E). Hãy xây dựng một cây khung của đồ thị G với 
 đỉnh u ∈ V là gốc của cây bằng thuật toán DFS.
 
