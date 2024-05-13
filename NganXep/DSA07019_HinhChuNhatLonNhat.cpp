@@ -74,6 +74,7 @@ int main(){
 /*
 Bài này ta sẽ đi tìm phần tử đầu tiên bé hơn bên trái và phần tử 
 đầu tiên lớn hơn bên phải của mỗi phần tử (tức của mỗi cọc)
+Nhớ là phần chiều rộng sẽ lấy ở giữa hai SR và SL (ko lấy SR và SL);
 
 chiều cao chính là  : a[i]
 chiều rộng chính là : R[i] - L[i] - 1
