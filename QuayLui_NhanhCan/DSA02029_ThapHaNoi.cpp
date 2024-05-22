@@ -40,6 +40,12 @@ int main(){
 }
 
 /*
+Có 3 cột A, B, C.
+Muốn di chuyển n đĩa từ cột A sang cột C ta sẽ làm theo các bước sau:
+	Di chuyển n - 1 đĩa từ cột A sang cột B lấy cột C làm trung gian
+	Di chuyển 1 đĩa từ cột A sang cột C
+	Di chuyển n - 1 đĩa từ cột B sang cột C lấy cột A làm trung gian
+
 Bài toán Tháp Hà Nội đã rất nổi tiểng. 
 Bắt đầu có các đĩa xếp chồng lên cột A theo thứ tự kích thước giảm dần, nhỏ nhất ở trên cùng. 
 Cột B và cột C ban đầu không có đĩa nào cả.

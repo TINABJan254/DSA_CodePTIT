@@ -37,19 +37,15 @@ bool isPrime(int m){
 
 
 void Try(int i, int start){
-	if (i > n)
-		return;
 	for (int j = start; j <= s; j++){
 		if (isPrime(j) && sum + j <= s){
 			sum += j;
 			x[i] = j;
-			if (i == n){
-				if (sum == s){
-					vi tmp(x + 1, x + n + 1);
-					res.pb(tmp);
-				}
+			if (i == n && sum == s){
+				vi tmp(x + 1, x + n + 1);
+				res.pb(tmp);
 			}
-			else{
+			else if (i < n){
 				Try(i + 1, j + 1);
 			}
 			sum -= j;

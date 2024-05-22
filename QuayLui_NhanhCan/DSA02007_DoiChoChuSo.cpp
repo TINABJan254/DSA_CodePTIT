@@ -64,7 +64,9 @@ int main(){
 }
 
 /*
-Cho số tự nhiên K và xâu ký tự các chữ số S.  Nhiệm vụ của bạn là đưa ra số lớn nhất bằng cách thực hiện nhiều nhất K lần đổi chỗ các ký tự trong S. Ví dụ K =3 và S = “1234567” ta được “7654321”.
+Cho số tự nhiên K và xâu ký tự các chữ số S.  
+Nhiệm vụ của bạn là đưa ra số lớn nhất bằng cách thực hiện nhiều nhất K lần đổi chỗ các ký tự trong S. 
+Ví dụ K =3 và S = “1234567” ta được “7654321”.
 
 Input:
 

@@ -16,29 +16,29 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
-int t[105];
-int n, s, res;
-bool flag;
+int n, s;
+int a[105];
+int res;
+vi v;
 
 void Init(){
 	cin >> n >> s;
-	for (int i = 1; i <= n; i++){
-		cin >> t[i];
-	}
-	sort(t + 1, t + n + 1, greater<int>());
+	for (int i = 1; i <= n; i++)
+		cin >> a[i];
 	res = INT_MAX;
-	flag = false;
+	v.clear();
 }
 
-void Try(int i, int cur_sum, int start){
+void Try(int start, int cur_sum){
 	for (int j = start; j <= n; j++){
-		if (cur_sum + t[j] == s){
-			res = min(res, i);
-			flag = true;
-			return;
-		}
-		else if (i < n && cur_sum + t[j] < s){
-			Try(i + 1, cur_sum + t[j], j + 1);
+		if (cur_sum + a[j] <= s){
+			v.pb(a[j]);
+			if (cur_sum + a[j] == s){
+				res = min(res, (int)v.sz);
+			}
+			else if (v.sz < res)
+				Try(j + 1, cur_sum + a[j]);
+			v.pop_back();
 		}
 	}
 }
@@ -46,8 +46,8 @@ void Try(int i, int cur_sum, int start){
 void solve(){
 	Init();
 	Try(1, 0);
-	if (!flag)
-		cout << -1;
+	if (res == INT_MAX)
+		cout << "-1";
 	else
 		cout << res;
 }
@@ -55,7 +55,7 @@ void solve(){
 int main(){
 	faster();
 	solve();
-	return 0;
+	return 0;	
 }
 
 /*

@@ -64,6 +64,45 @@ int main(){
 }
 
 /*
+Cach code khac:
+string s;
+
+vector<vector<string>> res;
+vector<string> v;
+
+bool check(string x){
+	string tmp = x;
+	reverse(tmp.begin(), tmp.end());
+	return tmp == x;
+}
+
+
+void Try(int start){
+	if (start == s.sz){
+		res.pb(v);
+	}
+	else{
+		for (int end = start; end < s.sz; end++){
+			if (check(s.substr(start, end - start + 1))){
+				v.pb(s.substr(start, end - start + 1));
+				Try(end + 1);
+				v.pop_back();
+			}
+		}
+	}
+}
+
+void solve(){
+	cin >> s;
+	Try(0);
+	for (auto tmp : res){
+		for (auto tmp2 : tmp)
+			cout << tmp2 << ' ';
+		cout << EL;
+	}
+}
+
+PROB:
 Cho số nguyên dương N ko quá 16 chữ số, bạn được phép tách các chữ số của N thành các
 số nhỏ hơn và phải đảm bảo các số tách được đều là số thuận nghịch, ko được phép đảo thứ
 tự các chữ số của N. Hãy in ra mọi cách tách như vậy.

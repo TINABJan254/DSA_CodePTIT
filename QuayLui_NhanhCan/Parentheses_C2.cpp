@@ -72,6 +72,53 @@ int main(){
 }
 
 /*
+ạn hãy sinh ra các biểu thức dấu ngoặc hợp lệ, từ các cặp dấu ngoặc "()", "[]", "{}"
+có độ dài N. Kết quả in ra theo thứ tự từ điển tăng dần, nếu không tồn tại biểu thức
+hợp lệ thỏa mãn thì in ra NOT FOUND.
+
+Input format
+ . Dòng duy nhất chứa số nguyên N
+Output format
+ . In ra đáp án theo yêu cầu của đề bài
+Constraints
+ . 2 <= N <= 15
+
+Sample:
+Input
+2
+
+Output
+() [] {}
 
 
+**Cách kiểm tra với trường hợp chỉ có 1 loại dấu ngoặc:
+
+bool check(string s){
+	int cnt = 0;
+	for (auto x : s){
+		if (x == '(' )
+			++cnt;
+		else
+			--cnt;
+		if (cnt < 0) //trường hợp xuất hiện dấu ngoặc đóng trước dấu ngoặc mở
+			return false;
+	}
+	return cnt == 0; //số lượng ngoặc đóng bằng ngoặc mở
+}
+
+bool check_with_stack(string s){
+	stack<char> st;
+	for (auto x : s){
+		if (x == '('){
+			s.push(x);
+		}
+		else {
+			if (st.empty()) //ko con dau mo nao 
+				return false;
+			else
+				st.pop();
+		}
+	}
+	return st.empty();
+}
 */

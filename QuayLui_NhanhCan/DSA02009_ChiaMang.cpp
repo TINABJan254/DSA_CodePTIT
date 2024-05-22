@@ -80,6 +80,29 @@ int main(){
 }
 
 /*
+(Bài này ta có thể bỏ qua việc lưu giá trị của tập vào mảng x)
+Ta sẽ đi xây dựng tập con với hai TH gọi đệ quy khác nhau
+    TH1: Chưa xây dựng thành công tập con thỏa mãn thì ta gọi
+        Try(i + 1, j + 1, cur_sum + a[j], cnt)
+            cnt: tức là đang xây dựng tập thứ cnt
+            j + 1: chỉ số để bắt đầu, bắt đầu từ j + 1 để ko lấy lại các ptử trước
+    TH2: Đã xây dựng xong tập con thỏa mãn thì ta gọi
+        Try(1, 1, 0, cnt + 1)
+            ta truyền i = 1 để xây dựng lại tập con từ phần tử đầu
+            ta truyền start = 1 là để vét lại các phần tử từ đầu mảng 
+                => cần dùng mảng used để loại bỏ các ptử đã xây dựng cho các tập trước đó
+            ta truyền cnt + 1 là để xây dựng tập tiếp theo là tập cnt + 1, cnt tập đã được xây dựng
+
+Try(i, start, cur_sum, cnt)
+Try(1, 1, 0, 1) tức là:
+    Đi xây dựng tập thứ 1, bắt đầu từ phần tử thứ 1, cur_sum ktạo = 0;
+Vậy thì mỗi bước là ta đang đi xây dựng tập thứ cnt
+    nếu cnt = 2 tức đang xây dựng tập 2 (1 tập hợp lệ đã được xây dưng)
+    nếu cnt = 3 tức đang xây dựng tập 3 (2 tập hợp lệ đã được xây dựng)
+Vậy nên để kết thúc đệ quy ta cần kiểm tra cnt > 2 là được
+    vì chỉ khi xây dựng được 2 tập rồi ta mới đi xây dựng tập thứ 3
+
+PROB:
 Cho mảng các số nguyên A[] gồm N phần tử. 
 Hãy chia mảng số nguyên A[] thành K tập con khác rỗng sao cho 
 tổng các phần tử của mỗi tập con đều bằng nhau. 

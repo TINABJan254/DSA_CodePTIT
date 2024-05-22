@@ -40,7 +40,7 @@ void Try(int start){
 				int tmp = x.sz;
 				minE = min(minE, tmp);
 			}
-			else if (sum < s && x.sz < minE){
+			else if (x.sz < minE){
 				Try(j + 1);
 			}
 			//backtrack
