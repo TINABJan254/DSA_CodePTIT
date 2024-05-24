@@ -1,73 +1,75 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define ll long long
-#define EL "\n"
+using ll=long long;
 #define pb push_back
 #define sz size()
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define vi vector<int>
+#define vll vector<ll>
 
-vector<ll> v;
-int n;
-string s;
-bool final;
-
-void Init(){
-    final = false;
-    s = "";
-    for (int i = 0; i < n; i++)
-        s += "0";
-    s[n - 1] = '9';
-}
-
-void genNext(){
-    int i = n - 1;
-    while (i >= 0 && s[i] == '9'){
-        s[i] = '0';
-        --i;
+int mod=1e9+7;
+int n,m,s,t;
+vector<int> ke[1005];
+int used[1005];
+int parent[1005];
+void nhap(){
+    cin>>n>>m>>s>>t;
+    for(int i=0;i<m;i++){
+        int x,y;
+        cin>>x>>y;
+        ke[x].push_back(y);
+        //adj[y].push_back(x);
     }
-
-    if (i == -1){
-        final = true;
-    }
-    else {
-        s[i] = '9';
+    for(int i=1;i<=n;i++){
+        sort(ke[i].begin(),ke[i].end());
     }
 }
 
-void solve(){
-    n = 19;
-    Init();
-    while (!final){
-        v.pb(stoll(s));
-        genNext();
-    }
-
-    ll ans[305];
-    for (int i = 1; i <= 300; i++){
-        for (auto x : v){
-            if (x % i == 0){
-                ans[i] = x;
-                break;
+void bfs(int u){
+    used[u]=1;
+    queue<int> q;
+    q.push(u);
+    while(!q.empty()){
+        int x=q.front();
+        q.pop();
+        for(int v:ke[x]){
+            if(!used[v]){
+                parent[v]=x;
+                used[v]=1;
+                q.push(v);
             }
         }
     }
-
-    int t; cin >> t;
-    while (t--){
-        int m;
-        cin >> m;
-        cout << ans[m] << EL;
-    }
-
-
 }
-
 int main(){
-    solve();
-    return 0;
+	freopen("inputf.txt", "r", stdin);
+    faster();
+    int tc;
+    cin>>tc;
+    while(tc--){
+        for(int i=1;i<=n;i++){
+            ke[i].clear();
+        }
+        memset(used,0,sizeof(used));
+        
+        nhap();
+        bfs(s);
+        if(!used[t]){
+            cout<<-1<<endl;
+        }
+        else{
+            vector<int> res;
+            while(t!=s){
+                res.push_back(t);
+                t=parent[t];
+            }
+            res.push_back(t);
+            reverse(res.begin(),res.end());
+            for(int x:res){
+                cout<<x<<" ";
+            }
+            cout<<endl;
+        }
+    }
 }
-
-/*
-
-*/
