@@ -12,28 +12,21 @@ using namespace std;
 #define vii vector<vector<int>>
 #define faster() ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
 #define pii pair<int, int>
+#define pci pair<char, int>
 
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
 void solve(){
 	int n; cin >> n;
-	int a[n + 5] = {0};
-	bool existPositiveNum = false;
-	for (int i = 0; i < n; i++){
+	int a[n + 5];
+	for (int i = 0; i < n; i++)
 		cin >> a[i];
-		if (a[i] > 0)
-			existPositiveNum = true;
-	}
 	sort(a, a + n);
-
-	ll res = 0;
-	if (existPositiveNum){
-		res = max(1ll * a[n - 1] * a[n - 2] * a[n - 3], 1ll * a[n - 1] * a[0] * a[1]);
-	}
-	else {
-		res = 1ll * a[0] * a[1];
-	}
+	ll res = max({1ll*a[0] * a[1], 
+				  1ll*a[n-1] * a[n-2], 
+				  1ll*a[n-1] * a[n-2] * a[n-3], 
+				  1ll*a[n-1] * a[0] * a[1]});
 	cout << res;
 }
 
@@ -44,6 +37,13 @@ int main(){
 }
 
 /*
+Note: Phải tính cả trường hợp tồn tại số âm
+	2 số dương lớn nhất
+	2 số âm bé nhất
+	3 số dương lớn nhất
+	2 số âm bé nhất * 1 số dương lớn nhất.
+	
+PROB:
 Cho dãy số A gồm N phần tử là các số nguyên. 
 Hãy tính tích lớn nhất của 2 hoặc 3 phần tử trong dãy.
 

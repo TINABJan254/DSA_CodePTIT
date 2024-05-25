@@ -1,57 +1,41 @@
-// C++ program to count swaps required to balance string
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-// Function to calculate swaps required
-long swapCount(string s)
-{
-	// Keep track of '['
-	vector<int> pos;
-	for (int i = 0; i < s.length(); ++i)
-		if (s[i] == '[')
-			pos.push_back(i);
+#define EL "\n"
+#define ll long long
+#define fi first
+#define se second
+#define sz size()
+#define pb push_back
+#define vi vector<int>
+#define vii vector<vector<int>>
+#define faster() ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+#define pii pair<int, int>
+#define pci pair<char, int>
 
-	int count = 0; // To count number of encountered '['
-	int p = 0; // To track position of next '[' in pos
-	long sum = 0; // To store result
+const int MOD = 1e9 + 7;
+const int N = 1e6 + 5;
 
-	for (int i = 0; i < s.length(); ++i)
-	{
-		// Increment count and move p to next position
-		if (s[i] == '[')
-		{
-			++count;
-			++p;
-		}
-		else if (s[i] == ']')
-			--count;
-
-		// We have encountered an unbalanced part of string
-		if (count < 0)
-		{
-			// Increment sum by number of swaps required
-			// i.e. position of next '[' - current position
-			sum += pos[p] - i;
-			swap(s[i], s[pos[p]]);
-			++p;
-
-			// Reset count to 1
-			count = 1;
-		}
-	}
-	return sum;
+void solve(){
+	int n; cin >> n;
+	int a[n + 5];
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	sort(a, a + n);
+	ll res = max({1ll*a[0] * a[1], 
+				  1ll*a[n-1] * a[n-2], 
+				  1ll*a[n-1] * a[n-2] * a[n-3], 
+				  1ll*a[n-1] * a[0] * a[1]});
+	cout << res;
 }
 
-// Driver code
-int main()
-{
-	int TC; cin >> TC;
-	while (TC--){
-	    string s;
-	    cin >> s;
-	    cout << swapCount(s) << endl;
-	}
+int main(){
+	faster();
+	solve();
 	return 0;
 }
+
+/*
+
+*/

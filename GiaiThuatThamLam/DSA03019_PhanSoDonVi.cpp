@@ -88,6 +88,18 @@ int main(){
 }
 
 /*
+Ta sẽ đi phân tích ps = 1/x + ps'
+	=> muốn có ít phân số nhất thì 1/x phải lớn nhất
+	mà 1/x <= ps  -> x >= 1/ps
+	tính được x  -> ps' = ps - 1/x
+	tiếp tục phân tích ps' như ps tức ps' = 1/x + ps'';
+Ví dụ:
+	5/6 = 1/x + ps'
+	1/x <= 5/6 -> x >= 6/5 -> x >= 2 (x_max = 2) ->  1/x = 6/5
+	-> ps' = 5/6 - 1/2 = 1/3
+	ps' đã là phân số đơn vị nên ko cần ptich ps' nữa
+	vậy: 5/6 = 1/2 + 1/3
+PROB:
 Một phân số đơn vị nếu tử số của phân số đó là 1. Mọi phân số nguyên dương đều có thể biểu diễn thành tổng các phân số đơn vị. Ví dụ 2/3 = 1/2  + 1/6. Cho phân số nguyên dương P/Q bất kỳ (P < Q), hãy biểu diễn phân số nguyên dương thành tổng phân số đơn vị với số hạng tử là ít nhất.
 
 Input:

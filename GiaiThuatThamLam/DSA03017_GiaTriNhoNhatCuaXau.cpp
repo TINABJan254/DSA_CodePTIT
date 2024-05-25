@@ -33,7 +33,9 @@ void solve(){
 
 	while (k-- && !pq.empty()){
 		int x = pq.top(); pq.pop();
-		pq.push(x - 1);
+		--x;
+		if (x > 0)
+			pq.push(x);
 	}
 
 	ll res = 0;

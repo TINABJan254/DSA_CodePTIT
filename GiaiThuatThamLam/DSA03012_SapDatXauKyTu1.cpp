@@ -26,7 +26,7 @@ void solve(){
 		max_fre = max(max_fre, fre[c]);
 	}
 	int n = s.sz;
-	if (max_fre <= ((n-1)/2 + 1) ) 
+	if (max_fre <= ((n-1)/2 + 1) ) //n - max_fre + 1
 		cout << 1 << EL;
 	else
 		cout << -1 << EL;

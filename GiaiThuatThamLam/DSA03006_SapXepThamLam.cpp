@@ -48,6 +48,16 @@ int main(){
 }
 
 /*
+Theo nguyên tắc sắp xếp của đề bài
+Ta có các phần tử trong mảng chỉ có thể nằm tại 1 trong hai chỗ
+	1. tại vị trí i
+	2. tại vi trí n - i - 1
+=> Ta chỉ cần đi so sánh mảng được sắp xếp với mảng đề cho
+Với mảng đã được sắp xếp ta xét từng vị trí i của mảng (i = 1..n)
+	sorted_a[i] == a[i] || a[n - i - 1] thì phần tử tại vị trí i oke
+	ngược lại thì sai
+
+PROB:
 Cho mảng A[] gồm N số và thực hiện các thao tác theo nguyên tắc dưới đây:
 
 Ta chọn một mảng con sao cho phần tử ở giữa của mảng con cũng là phần tử ở giữa của mảng A[] (trong trường hợp N lẻ).
