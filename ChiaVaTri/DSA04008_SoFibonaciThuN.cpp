@@ -69,6 +69,13 @@ int main(){
 }
 
 /*
+			1 1	
+Ma trận a = 
+			1 0
+
+	   Fn+1  Fn
+a^n =
+	   Fn    Fn-1
 
 Dãy số Fibonacci được xác định bằng công thức như sau:
 

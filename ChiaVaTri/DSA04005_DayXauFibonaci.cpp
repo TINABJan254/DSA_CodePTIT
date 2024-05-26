@@ -53,6 +53,12 @@ int main(){
 }
 
 /*
+Với bài này ta sẽ xét 2TH có thể gọi đệ quy đến đó là:
+	k thuộc F[n - 2]
+	hoặc k thuộc F[n - 1]
+	Vì bài này F[n-2] != F[n-1] nên ta làm khác 1 tí so với bài gấp đôi dãy số
+	
+PROB:
 Một dãy xâu ký tự G chỉ bao gồm các chữ cái A và B được gọi là dãy xâu Fibonacci 
 nếu thỏa mãn tính chất:    G(1) = A; G(2) = B; G(n) = G(n-2)+G(n-1). 
 Với phép cộng (+) là phép nối hai xâu với nhau.  

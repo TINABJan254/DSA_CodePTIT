@@ -22,7 +22,6 @@ bool visited[1005];
 vector<pii> dsCanh;
 
 void DFS(int u, int x, int y){
-	cout << "debug\n";
 	visited[u] = true;
 	for (int v : adj[u]){
 		if ((u == x && v == y) || (u == y && v == x))
@@ -59,11 +58,11 @@ void solve(){
 		int cc = tplt(-1, -1);
 
 		if (cc < tplt(x, y))
-			cout << x << ' ' << y << EL;
+			cout << x << ' ' << y << ' ';
 	}
-
+	cout << EL;
 	for (int i = 1; i <= n; i++)
-		adj[i].clear();
+	adj[i].clear();
 	dsCanh.clear();
 }
 

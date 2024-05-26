@@ -17,6 +17,7 @@ const int MOD = 1e9 + 7;
 const int N = 1e6 + 5;
 
 ll binPow(ll n, ll k){
+	n %= MOD;
 	ll res = 1;
 	while (k != 0){
 		if (k % 2 != 0){
@@ -28,6 +29,15 @@ ll binPow(ll n, ll k){
 		k /= 2;
 	}
 	return res;
+}
+
+ll binPow2(ll n, ll k){
+	if (k == 0)
+		return 1;
+	ll res = binPow2(n, k / 2);
+	if (k % 2 != 0)
+		return ( (res * res) % MOD * n) % MOD;
+	return (res * res) % MOD;
 }
 
 void solve(){

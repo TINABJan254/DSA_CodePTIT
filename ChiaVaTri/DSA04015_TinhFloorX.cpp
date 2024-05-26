@@ -24,7 +24,7 @@ void solve(){
 
 	auto pos = lower_bound(a, a + n, x) - a;
 	
-	if (pos == n || (pos == 0 && a[pos] > x)){
+	if (pos == 0 && a[pos] > x){
 		cout << "-1\n";
 	}
 	else if (a[pos] == x){

@@ -26,17 +26,18 @@ void solve(){
 	int res = 0;
 	for (int i = 0; i < n; i++){
 		int pos = lower_bound(a + i, a + n, a[i] + k) - a;
-		//cout << pos << EL;
-		// if (pos == n){
-		// 	continue;
-		// }
+		cout << pos << " ";
 		pos = pos - i;
 		res += (pos * (pos - 1)) / 2;
+		cout << res << EL;
 	}
 	cout << res << EL;
 }
 
 int main(){
+	#ifndef ONLINE_JUDGE
+		freopen("inputf.txt", "r", stdin);
+	#endif
 	faster();
 	int TC; cin >> TC;
 	while (TC--){

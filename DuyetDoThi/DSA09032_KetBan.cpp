@@ -93,6 +93,10 @@ int main(){
 }
 
 /*
+Bài này thực chất chỉ là đi tìm số lượng đỉnh trong 1 thành phần liên thông,
+không cần phải làm liên thông mạnh làm gì cả. Code ở cuối
+
+PROB:
 Trường học X có N sinh viên, trong đó có M cặp là bạn bè của nhau. Bạn của bạn cũng là bạn, tức là nếu A là bạn của B, B là bạn của C thì A và C cũng là bạn bè của nhau.
 
 Các bạn hãy xác định xem số lượng sinh viên nhiều nhất trong một nhóm bạn là bao nhiêu?
@@ -133,4 +137,78 @@ INPUT
 OUTPUT
 3
 7
+
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define EL "\n"
+#define ll long long
+#define fi first
+#define se second
+#define sz size()
+#define pb push_back
+#define vi vector<int>
+#define vii vector<vector<int>>
+#define faster() ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+#define pii pair<int, int>
+
+const int MOD = 1e9 + 7;
+const int N = 1e6 + 5;
+
+bool visited[100005];
+vi adj[100005];
+int n, m;
+int res, len;
+
+
+void Init(){
+    memset(visited, false, sizeof(visited));
+    res = -1;   
+}
+
+void DFS(int u){
+    ++len;
+    visited[u] = true;
+    for (int v : adj[u])
+        if (!visited[v])
+            DFS(v);
+}
+
+void solve(){
+    cin >> n >> m;
+    for (int i = 1; i <= m; i++){
+        int x, y; cin >> x >> y;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+    Init();
+    
+    for (int i = 1; i <= n; i++){
+        if (!visited[i]){
+            len = 0;
+            DFS(i);
+            res = max(res, len);
+        }
+    }
+    
+    cout << res << EL;
+    
+    //release
+    for (int i = 1; i <= n; i++)
+        adj[i].clear();
+}
+
+int main(){
+    #ifndef ONLINE_JUDGE
+        freopen("inputf.txt", "r", stdin);
+    #endif
+    faster();
+    int TC; cin >> TC;
+    while (TC--){
+        solve();
+    }
+    return 0;
+}
 */

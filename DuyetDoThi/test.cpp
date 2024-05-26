@@ -1,89 +1,42 @@
-
-
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-#define EL "\n"
-#define ll long long
-#define fi first
-#define se second
-#define sz size()
+using ll=long long;
 #define pb push_back
+#define sz size()
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 #define vi vector<int>
-#define vii vector<vector<int>>
-#define faster() ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-#define pii pair<int, int>
+#define vll vector<ll>
 
-const int MOD = 1e9 + 7;
-const int N = 1e6 + 5;
-
-int n, m;
-vi adj[1005];
-bool visited[1005];
-vector<pii> dsCanh;
-
-void DFS(int u, int x, int y){
-	visited[u] = true;
-	for (int v : adj[u]){
-		if ((u == x && v == y) || (u == y && v == x))
-			continue;
-		if (!visited[v])
-			DFS(v, x, y);
-	}
-}
-
-int tplt(int x, int y){
-	int res = 0;
-	memset(visited, false, sizeof(visited));
-	for (int i = 1; i <= n; i++){
-		if (!visited[i]){
-			++res;
-			DFS(i, x, y);
+int mod=1e9+7;
+int main(){
+    faster();
+    queue<ll> q;
+    vll v;
+    q.push(1);
+    while(!q.empty()){
+    	ll u=q.front();
+    	q.pop();
+    	v.pb(u);
+    	if(u<=1e19){
+    		q.push(10*u);
+		    q.push(10*u+1);
 		}
 	}
-	return res;
-}
-
-void solve(){
-	n = m = 12;
-	int a[n + 5][m + 5];
-	for (int i = 1; i <= n; i++)
-		for (int j = 1; j <= m; j++)
-			cin >> a[i][j];
-	for (int i = 1; i <= m; i++){
-		for (int j = 1; j <= n; j++)
-			if (a[i][j] == 1){
-				adj[i].pb(j);
-				adj[j].pb(i);
-				dsCanh.pb({i, j});
+	int t;
+	cin>>t;
+	while(t--){
+		int cnt=0;
+		int n;
+		cin>>n;
+		for(ll x:v){
+			if(x<=n){
+				++cnt;
 			}
+			else{
+				break;
+			}
+		}
+		cout<<cnt<<endl;
 	}
-	
-
-	for (auto it : dsCanh){
-		int x = it.fi;
-		int y = it.se;
-		int cc = tplt(-1, -1);
-
-		if (cc < tplt(x, y))
-			cout << x << ' ' << y << EL;
-	}
-
-	for (int i = 1; i <= n; i++)
-		adj[i].clear();
-	dsCanh.clear();
 }
-
-int main(){
-	faster();
-	int TC; cin >> TC;
-	while (TC--){
-		solve();
-	}
-	return 0;
-}
-
-/*
-
-*/
